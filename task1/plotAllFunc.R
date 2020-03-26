@@ -10,17 +10,14 @@
 ###########################
 
 
-# this is where we will read data from. NOTE that we will not have permission to write data here, 
-# so will need to give the absolute path to the location we want to write to
-
-setwd("/geos/netdata/env_geog/week_11/task1/func_form")
-
-# select a filename
-fileList="funcForm.line.txt"
+# make a list of filenames
+dirName="/geos/netdata/env_geog/week_11/task1/func_form"
+fileList<-list("funcForm.asymp.txt","funcForm.exp.txt","funcForm.logtrans.txt","funcForm.nline.txt","funcForm.quad.txt","funcForm.cube.txt","funcForm.line.txt","funcForm.log.txt","funcForm.noise.txt")
 
 
 # loop over the filename list
-for(filename in fileList){
+for(root in fileList){
+  filename=paste(dirName,root,sep="/")
   # read the data, a space delimited text file, in to RAM
   dataset <- read.table(filename)
 
@@ -28,10 +25,10 @@ for(filename in fileList){
   summary(dataset)
 
   # plot a graph
+  outName=paste(root,'png',sep=".")
+  png(outName)
   plot(dataset$V1,dataset$V2,xlab="Biomass (Mg/ha)", ylab = "Predictor", cex=1, pch=19, col="blue") ## need to add colour
-
-  # save that graph to a .png file to be used in a report
-  png('funcForm.line.png')
   dev.off()
+  print(outName)
 }# filename loop
 
