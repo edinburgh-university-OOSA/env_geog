@@ -19,7 +19,7 @@ chmName="/geos/netdata/env_geog/week_11/task2/lidar/CHM/mergedCHM.tif"
 
 
 # read data
-dsm <- raster(chmName)
+chm <- raster(chmName)
 
 
 # best fit variables
@@ -27,7 +27,7 @@ c=2538.81
 m=491.26
 
 # apply model and rescale to Mg/ha
-biomassMap=(dsm*m+c)/1000
+biomassMap=(chm*m+c)
 
 # write biomass to a new geotiff
 outName="biomassMap.tif"
