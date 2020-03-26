@@ -42,9 +42,10 @@ for(root in tileList){
 
 
   # append to overall data
-  if(exists('merged'))fList=list(merged,coarseCHM)
-  else                fList=list(coarseCHM) # if this is the first time, it does not exist yet
-  merged <- do.call(merge,fList)
+  if(exists('merged')){
+    fList=list(merged,coarseCHM)
+    merged<- do.call(merge,fList)
+  }else merged=coarseCHM
 
 } # tile loop
 
