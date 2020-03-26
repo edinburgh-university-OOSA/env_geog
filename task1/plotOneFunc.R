@@ -9,13 +9,8 @@
 #######################
 
 
-# this is where we will read data from. NOTE that we will not have permission to write data here, 
-# so will need to give the absolute path to the location we want to write to
-
-setwd("/geos/netdata/env_geog/week_11/task1/func_form")
-
 # select a filename
-filename="funcForm.line.txt"
+filename="/geos/netdata/env_geog/week_11/task1/func_form/funcForm.line.txt"
 
 # read the data, a space delimited text file, in to RAM
 dataset <- read.table(filename)
