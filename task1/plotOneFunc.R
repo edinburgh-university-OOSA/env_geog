@@ -10,7 +10,7 @@
 
 
 # this is where we will read data from. NOTE that we will not have permission to write data here, 
-# so will need to give the absolute path to the location we want to write ti
+# so will need to give the absolute path to the location we want to write to
 
 setwd("/geos/netdata/env_geog/week_11/task1/func_form")
 
@@ -27,6 +27,6 @@ summary(dataset)
 plot(dataset$V1,dataset$V2,xlab="Biomass (Mg/ha)", ylab = "Predictor", cex=1, pch=19, col="blue") ## need to add colour
 
 # save that graph to a .png file to be used in a report
-dev.copy(png,'myplot.png')
+png('funcForm.line.png')
 dev.off()
 
