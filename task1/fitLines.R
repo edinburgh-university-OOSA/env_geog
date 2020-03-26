@@ -29,7 +29,7 @@ for(root in fileList){
   outName=paste("fit",root,'png',sep=".")
   png(outName)
   plot(dataset$V1,dataset$V2,xlab="Biomass (Mg/ha)", ylab = "Predictor", cex=1, pch=19, col="blue") ## need to add colour
-  eq <- paste0("mpg = ", cf[1], ifelse(sign(cf[2])==1, " + ", " - "), abs(cf[2]), " x ", ifelse(sign(cf[3])==1, " + ", " - "))
+  eq <- paste0("y =", ifelse(sign(cf[2])==1, " ", " - "),abs(cf[2]), " X ",ifelse(sign(cf[1])==1, " + ", " - "),cf[1])
   mtext(eq, 3, line=-2)
   abline(fits)
   dev.off()
