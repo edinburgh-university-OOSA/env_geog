@@ -21,7 +21,7 @@ for(root in fileList){
   dataset <- read.table(filename)
 
   # use linear regression for a line of best fit
-  fits<-lm(dataset$V1 ~ dataset$V2)  # note that is is y against x
+  fits<-lm(dataset$V1 ~ dataset$V2)
   cf <- round(coef(fits), 2) 
 
 
