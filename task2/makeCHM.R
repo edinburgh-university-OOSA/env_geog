@@ -29,11 +29,11 @@ chm=dsm-dtm
 # coarsen the resolution to get MCH
 endRes=10  # 10 m resolutio
 coarseFact=round(endRes/res(chm)[1])
-chm <- aggregate(chm, fact=coarseFact)
+coarseCHM <- aggregate(chm, fact=coarseFact)
 
 # write to a new geotiff
 chmName="CHM_NH70.tif"
-writeRaster(chm,chmName)
+writeRaster(coarseCHM,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
 print(chmName)
 
 
