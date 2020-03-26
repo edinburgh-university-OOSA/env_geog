@@ -1,0 +1,10 @@
+
+
+
+
+Make some function form graphs:
+
+
+/Users/dill/teaching/environmental_geography/2019/pandemic_week/scripts/func_forms/makeForms.csh
+
+
