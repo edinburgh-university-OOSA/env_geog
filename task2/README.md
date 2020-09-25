@@ -2,6 +2,8 @@
 
 These R scripts take DTMs and DSMs from the [Scottish Government lidar data archive](https://remotesensingdata.gov.scot/data#/list) and estimate biomass from them.
 
+The path names here are written to run on the University of Edinburgh's School of Geoscience's linux clusters.
+
 
 ### batchCHM.R
 
