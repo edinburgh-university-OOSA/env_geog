@@ -31,7 +31,7 @@ biomassMap=(chm*m+c)
 
 # write biomass to a new geotiff
 outName="biomassMap.tif"
-writeRaster(biomassMap,outName, format="GTiff",datatype="INT1U", overwrite=TRUE)
+writeRaster(biomassMap,outName, format="GTiff",datatype="FLT45", overwrite=TRUE)
 print(outName)
 
 
