@@ -7,3 +7,15 @@ This is the code for the University of Edinburgh's [Environmental Geography](htt
 * Plan ground data collection
 * Accuracy quantification to assess suitability for applications
 
+Code is primarily in R, with some preparation scripts in Python.
+
+
+## Author
+
+Steven Hancock: sthancock
+steven.hancock@ed.ac.uk
+
+## Licensing
+
+Gnu Public License
+
