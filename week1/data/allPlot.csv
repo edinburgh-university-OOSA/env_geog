@@ -121,7 +121,7 @@ plot,treeN,species,dbh,state
 6,12,PA,14.0,alive
 6,13,PS,31.0,alive
 6,14,QR,28.0,alive
-6,15,QR,27.0,alive
+6,15,QR,2700.0,alive
 6,16,FS,24.0,dead
 6,17,PS,19.0,alive
 6,18,PA,12.0,alive
