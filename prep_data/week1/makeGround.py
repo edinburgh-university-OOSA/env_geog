@@ -21,6 +21,7 @@ def readCommands():
   p.add_argument("--output",dest="outName",type=str,default='test.csv',help=("Output filename\nDefault=test.csv"))
   p.add_argument("--nPlots", dest ="nPlots", type=int, default=1, help=("Number of plots\nDefault = 1"))
   p.add_argument("--meanMass", dest ="meanB", type=float, default=150, help=("Mean biomass in Mg/ha\nDefault = 150 Mg/ha"))
+  p.add_argument("--plotSize", dest ="pSize", type=float, default=20, help=("Plot side length in metres\nDefault = 20 m"))
   cmdargs = p.parse_args()
   return cmdargs
 
@@ -74,7 +75,7 @@ class plotData():
 
       self.nTrees+=1
 
-    print("nTrees",self.nTrees,"biomass",biomass/(1000*10**2)*100**2)
+    print("nTrees",self.nTrees,"biomass",biomass/(1000*dataStruct.pSize**2)*100**2)
 
     return
 
@@ -86,7 +87,7 @@ class generateData():
 
   ###########################
 
-  def __init__(self,nPlots,meanB):
+  def __init__(self,nPlots,meanB,pSize):
     '''Class initialiser'''
 
     # make a species list
@@ -95,10 +96,11 @@ class generateData():
     # allocate space
     self.nPlots=nPlots
     self.plots=np.empty((nPlots),plotData)
+    self.pSize=pSize
 
     # loop over plots and populate. Biomass is in kg/ha
-    biomasses=np.random.uniform(low=0.0,high=350000*10**2/(100**2),size=nPlots)
-    for i in range(0,nPlots):
+    biomasses=np.random.uniform(low=0.0,high=350000*self.pSize**2/(100**2),size=nPlots)
+    for i in range(0,self.nPlots):
       self.plots[i]=plotData(biomasses[i],self)
 
     return
@@ -111,11 +113,6 @@ class generateData():
     self.nSp=4
 
     # species list
-    #self.spList=np.empty((self.nSp),dtype=str)
-    #self.spList[0]="PA"
-    #self.spList[1]="PS"
-    #self.spList[2]="QR"
-    #self.spList[3]="FS"
     self.spList=["PA","PS","QR","FS"]
 
     # is conifer or not
@@ -127,10 +124,10 @@ class generateData():
 
     # mean DBH, in cm
     self.meanDBH=np.empty((self.nSp),dtype=float)
-    self.meanDBH[0]=10
-    self.meanDBH[1]=20
-    self.meanDBH[2]=25
-    self.meanDBH[3]=12
+    self.meanDBH[0]=15
+    self.meanDBH[1]=25
+    self.meanDBH[2]=30
+    self.meanDBH[3]=18
 
     # allometric parameters
     # Muukkonen, eg 2. b=B0.DBH**B1
@@ -154,6 +151,29 @@ class generateData():
     return
 
 
+  ###########################
+
+  def writeCSV(self,outName):
+    '''Write plot data to a csv'''
+
+    # open
+    f=open(outName,'w')
+    line="plot,treeN,species,dbh,state\n"
+    f.write(line)
+
+    # loop over plots
+    for i in range(0,self.nPlots):
+      # loop over trees
+      for j in range(0,self.plots[i].nTrees):
+        line=str(i)+","+str(j)+","+str(self.plots[i].sp[j])+","+\
+             str(self.plots[i].dbh[j])+","+str(self.plots[i].alive[j])+"\n" 
+        f.write(line)
+
+    f.close()
+    print("Written to",outName)
+    return
+
+
 #########################################
 
 if __name__ == '__main__':
@@ -163,10 +183,10 @@ if __name__ == '__main__':
   cmd=readCommands()
 
   # generate plot data
-  data=generateData(cmd.nPlots,cmd.meanB)
+  data=generateData(cmd.nPlots,cmd.meanB,cmd.pSize)
 
   # write data
-
+  data.writeCSV(cmd.outName)
 
 
 #########################################
