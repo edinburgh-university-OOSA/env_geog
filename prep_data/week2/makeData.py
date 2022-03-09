@@ -48,6 +48,8 @@ class fakeData():
     # x is MCH
     if(form=="line"):
       x=(y+rmseArr-c)/m
+    elif(form=="exp"):
+      print("No so fast")
 
     # delete negative number
     self.x=x[(y>=0.0)&(x>=0.0)]
