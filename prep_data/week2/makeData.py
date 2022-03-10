@@ -49,7 +49,10 @@ class fakeData():
     if(form=="line"):
       x=(y+rmseArr-c)/m
     elif(form=="exp"):
-      print("No so fast")
+      x=c*(1-np.exp(-m*(y+rmseArr-bias)))
+    elif(form=="log"):
+      x=(-1.0/m)*np.log(1-(y+rmseArr-bias)/c)  # c is amplitude. m is gradient
+      x=x*25/np.max(x) # scale between 0 and 25 
 
     # delete negative number
     self.x=x[(y>=0.0)&(x>=0.0)]
