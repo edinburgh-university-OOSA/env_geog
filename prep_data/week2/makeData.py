@@ -29,6 +29,8 @@ def readCommands():
   p.add_argument("--m", dest ="m", type=float, default=1/0.12, help=("Line gradient"))
   p.add_argument("--c", dest ="c", type=float, default=0, help=("Line y interept"))
   p.add_argument("--form", dest ="form", type=str, default="line", help=("Format of line. Line, exg or log"))
+  p.add_argument("--writePoints",dest="writePoints", action='store_true', default=False, help=("Write points to a file"))
+
   cmdargs = p.parse_args()
   return cmdargs
 
@@ -67,12 +69,28 @@ class fakeData():
     '''Plot points'''
 
     plt.plot(self.x,self.y,'.')
-    plt.ylabel("Biomass (Mg/ha)")
+    plt.ylabel("Biomass density (Mg/ha)")
     plt.xlabel("Mean canopy height (m)")
     plt.savefig(outName)
     plt.close()
     print("Graph to",outName)
 
+    return
+
+
+  #############################
+
+  def writePoints(self,outRoot):
+    '''Write points to a file'''
+    outNamen=outRoot.strip('.png')+".txt"
+
+    f=open(outNamen,'w')
+    for i in range(0,self.x.shape[0]):
+      line=str(self.x[i])+" "+str(self.y[i])+"\n"
+      f.write(line)
+
+    f.close()
+    print("Written to",outNamen)
     return
 
 
@@ -89,6 +107,10 @@ if __name__ == '__main__':
 
   # plot it
   d.plotPoints(cmd.outName)
+
+  if(cmd.writePoints):
+    # write points
+    d.writePoints(cmd.outName)
 
 #########################################
 
