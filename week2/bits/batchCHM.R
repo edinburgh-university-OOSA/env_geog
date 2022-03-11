@@ -32,6 +32,6 @@ for(dsmRoot in dsmList){
   chmName=gsub('DSM','CHM',dsmRoot)
 
   writeRaster(coarseCHM,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
-  print('Written to',chmName)
+  print(chmName)
 }
 
