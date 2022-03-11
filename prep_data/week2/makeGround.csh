@@ -8,6 +8,6 @@ set output="groundData.csv"
 set rmse=20
 @ nPlots=20
 
-python3 $bin/groundBiomass.py --nPlots $nPlots --chm $chm
+python3 $bin/groundBiomass.py --nPlots $nPlots --chm $chm --output $output 
 
 
