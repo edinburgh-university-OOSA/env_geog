@@ -75,7 +75,7 @@ class plotData():
 
       self.nTrees+=1
 
-    print("nTrees",self.nTrees,"biomass",biomass/(1000*dataStruct.pSize**2)*100**2)
+    print("nTrees",self.nTrees,"biomass",biomass/(1000*20**2)*100**2)
 
     return
 
@@ -87,19 +87,17 @@ class generateData():
 
   ###########################
 
-  def __init__(self,nPlots,meanB,pSize):
+  def __init__(self,biomasses):
     '''Class initialiser'''
 
     # make a species list
     self.makeSpecies()
 
     # allocate space
-    self.nPlots=nPlots
-    self.plots=np.empty((nPlots),plotData)
-    self.pSize=pSize
+    self.nPlots=biomasses.shape[0]
+    self.plots=np.empty((self.nPlots),plotData)
 
     # loop over plots and populate. Biomass is in kg/ha
-    biomasses=np.random.uniform(low=0.0,high=350000*self.pSize**2/(100**2),size=nPlots)
     for i in range(0,self.nPlots):
       self.plots[i]=plotData(biomasses[i],self)
 
@@ -182,8 +180,11 @@ if __name__ == '__main__':
   # read command line
   cmd=readCommands()
 
+  # set biomass values
+  biomasses=np.random.uniform(low=0.0,high=350000*cmd.pSize**2/(100**2),size=cmd.nPlots)
+
   # generate plot data
-  data=generateData(cmd.nPlots,cmd.meanB,cmd.pSize)
+  data=generateData(biomasses)
 
   # write data
   data.writeCSV(cmd.outName)
