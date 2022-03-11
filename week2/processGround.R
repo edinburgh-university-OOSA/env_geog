@@ -41,36 +41,31 @@ colnames(biomass) <- c(plots)
 # loop over plots
 for( p in plots )
 {
-  print(p)
-
   # find DBH and species for alive trees in this plot
   thisDBH=d$dbh[(d$plot==p)&(d$state=='alive')]
   thisSP=d$species[(d$plot==p)&(d$state=='alive')]
 
-print('here?')
   # loop over trees and add up biomass
   for ( i in 1:length(thisDBH)){
-print(i)
 
     # allometric parameters for this equation
     beta0=beta[1,thisSP[i]]
     beta1=beta[2,thisSP[i]]
     beta2=beta[3,thisSP[i]]
-print(beta0)
 
-    thisBiomass=exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))
-print(thisBiomass)
-print(thisBiomass)
-§
+    # biomass in Mg (divide by 1000 to convert kg to Mg)
+    thisBiomass=exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))/1000.0
 
     # add up biomass for this plot
     biomass[p]=biomass[p]+thisBiomass
   }
-
 
   # scale biomass by plot area
   biomass[p]=biomass[p]/area
 }
 
 # write data to a csv file
+outname='fieldBiomass.csv'
+write.csv(biomass,outname)
+print(outname)
 
