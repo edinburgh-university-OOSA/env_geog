@@ -165,7 +165,7 @@ class generateData():
     for i in range(0,self.nPlots):
       # loop over trees
       for j in range(0,self.plots[i].nTrees):
-        line=str(i)+","+str(j)+","+str(self.plots[i].sp[j])+","+\
+        line=str(i+1)+","+str(j)+","+str(self.plots[i].sp[j])+","+\
              str(self.plots[i].dbh[j])+","+str(self.plots[i].alive[j])+"\n" 
         f.write(line)
 
