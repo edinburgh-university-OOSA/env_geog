@@ -6,11 +6,8 @@ library(raster)
 
 dsmDir='/geos/netdata/env_geog/week8/lidar/DSM'
 dtmDir='/geos/netdata/env_geog/week8/lidar/DTM'
-dtmRoot="DTM"
-dsmRoot="DSM"
 
 dsmList=list.files(path=dsmDir,pattern='.tif') 
-
 
 # loop over tiles
 for(dsmRoot in dsmList){
@@ -33,7 +30,8 @@ for(dsmRoot in dsmList){
   coarseCHM <- aggregate(chm, fact=coarseFact)
 
 # write to a new geotiff
-  chmName='NS95NW_50CM_CHM_PHASE5.tif'
+  chmName=gsub('DSM','CHM',dsmRoot)
+
   writeRaster(coarseCHM,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
   print('Written to',chmName)
 }
