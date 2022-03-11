@@ -13,17 +13,18 @@ from math import exp
 
 #########################################
 
-def readCommands():
-  '''
-  Get commandline arguments
-  '''
-  p = argparse.ArgumentParser(description=("An illustration of a command line parser"))
-  p.add_argument("--output",dest="outName",type=str,default='test.csv',help=("Output filename\nDefault=test.csv"))
-  p.add_argument("--nPlots", dest ="nPlots", type=int, default=1, help=("Number of plots\nDefault = 1"))
-  p.add_argument("--meanMass", dest ="meanB", type=float, default=150, help=("Mean biomass in Mg/ha\nDefault = 150 Mg/ha"))
-  p.add_argument("--plotSize", dest ="pSize", type=float, default=20, help=("Plot side length in metres\nDefault = 20 m"))
-  cmdargs = p.parse_args()
-  return cmdargs
+if __name__=="__main__":
+  def readCommands():
+    '''
+    Get commandline arguments
+    '''
+    p = argparse.ArgumentParser(description=("An illustration of a command line parser"))
+    p.add_argument("--output",dest="outName",type=str,default='test.csv',help=("Output filename\nDefault=test.csv"))
+    p.add_argument("--nPlots", dest ="nPlots", type=int, default=1, help=("Number of plots\nDefault = 1"))
+    p.add_argument("--meanMass", dest ="meanB", type=float, default=150, help=("Mean biomass in Mg/ha\nDefault = 150 Mg/ha"))
+    p.add_argument("--plotSize", dest ="pSize", type=float, default=20, help=("Plot side length in metres\nDefault = 20 m"))
+    cmdargs = p.parse_args()
+    return cmdargs
 
 
 
