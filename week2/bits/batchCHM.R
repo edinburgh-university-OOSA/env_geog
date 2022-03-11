@@ -15,7 +15,6 @@ for(dsmRoot in dsmList){
   # set filenames
   dsmName=paste(dsmDir,dsmRoot,sep="/")
   dtmName=gsub('DSM','DTM',dsmName)
-  print(dsmName)
 
   # read data
   dsm <- raster(dsmName)
@@ -29,7 +28,7 @@ for(dsmRoot in dsmList){
   coarseFact=round(endRes/res(chm)[1])
   coarseCHM <- aggregate(chm, fact=coarseFact)
 
-# write to a new geotiff
+  # write to a new geotiff
   chmName=gsub('DSM','CHM',dsmRoot)
 
   writeRaster(coarseCHM,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
