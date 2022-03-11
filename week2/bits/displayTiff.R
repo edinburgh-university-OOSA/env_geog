@@ -3,7 +3,7 @@ library(rgdal)
 library(sp)
 library(raster)
 
-filename <- '/geos/netdata/env_geog/week8/lidar/DSM/DSM_NH80.tif'
+filename <- '/geos/netdata/env_geog/week8/lidar/DSM/NS95NW_50CM_DSM_PHASE5.tif'
 
 # read data
 dem <- raster(filename)
@@ -16,6 +16,4 @@ plot(dem)
 
 # view the projection information
 dem@crs
-
-# how to translate the above into an EPSG code?
 
