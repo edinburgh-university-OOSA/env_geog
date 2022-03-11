@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-set bin="$HOME/teaching/env_geog/2021-22/env_geog_code/prep_data/week2"
+set bin="$HOME/src/env_geog/prep_data/week2"
 
 set outRoot="lineExamp"
 set rmseList="0 10 20 30 40 50 60 70 100"

@@ -20,9 +20,24 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=("An illustration of a command line parser"))
     p.add_argument("--output",dest="outName",type=str,default='test.csv',help=("Output filename\nDefault=test.csv"))
     p.add_argument("--nPlots", dest ="nPlots", type=int, default=1, help=("Number of plots\nDefault = 1"))
-    p.add_argument("--chm",dest="chName",type=str,help=("Input CHM filename"))
+    p.add_argument("--chm",dest="chmName",type=str,help=("Input CHM filename"))
     cmdargs = p.parse_args()
     return cmdargs
+
+
+#############################################
+
+def setBiomass(chm,nPlots):
+  '''set biomass from CHM'''
+
+  # data pixels
+  inds=np.where(chm.data<200)[0]
+
+  # find bounds
+  maxCHM=np.max(chm.data[inds])
+
+  # pick random stratification
+
 
 
 #############################################
@@ -37,7 +52,7 @@ if __name__ == "__main__":
   chm=tiffHandle(cmd.chmName)
 
   # set biomass values
-
+  biomasses=setBiomass(chm,cmd.nPlots)
 
   # set plot data data
   #data=generateData(biomasses)
