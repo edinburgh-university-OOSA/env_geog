@@ -34,11 +34,12 @@ beta$QR[2]=10.677  # beta 1
 beta$QR[3]=15.900  # beta 2
 
 # dataframe to hold total biomass density. All 0 for now with plot names as columns
-biomass <- as.data.frame(matrix(0,ncol = length(plots), nrow = 1))
-colnames(biomass) <- c(plots)
+biomass <- as.data.frame(matrix(0,ncol=2,nrow=length(plots)))
+colnames(biomass) <- c("plot","biomassDensity")
 
 
 # loop over plots
+j=1
 for( p in plots )
 {
   # find DBH and species for alive trees in this plot
@@ -57,11 +58,14 @@ for( p in plots )
     thisBiomass=exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))/1000.0
 
     # add up biomass for this plot
-    biomass[p]=biomass[p]+thisBiomass
+    biomass$plot[j]=p
+    biomass$biomassDensity[j]=biomass$biomassDensity[j]+thisBiomass
   }
 
   # scale biomass by plot area
-  biomass[p]=biomass[p]/area
+  biomass$biomassDensity[j]=biomass$biomassDensity[j]/area
+
+  j=j+1   # this keeps count of where in the data frame we are
 }
 
 # write data to a csv file
