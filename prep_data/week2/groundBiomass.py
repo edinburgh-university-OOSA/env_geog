@@ -99,11 +99,11 @@ def writeCoords(x,y,biomasses,outName):
   thisName=outName.strip(".csv")+".coords.csv"
 
   f=open(thisName,'w')
-  line="plot,longitude,lattitude,biomass\n"
+  line="plot,longitude,lattitude\n"
   f.write(line)
 
   for i in range(0,x.shape[0]):
-    line=str(i)+","+str(x[i])+","+str(y[i])+","+str(biomasses[i])+"\n"
+    line=str(i)+","+str(x[i])+","+str(y[i])+"\n" #","+str(biomasses[i])+"\n"
     f.write(line)
 
   f.close()
@@ -139,6 +139,9 @@ if __name__ == "__main__":
 
   # set biomass values
   biomasses,x,y=setBiomass(chm,cmd.nPlots,cmd.bias,cmd.rmse,cmd.minX,cmd.minY,cmd.maxX,cmd.maxY)
+
+  # scale biomass to total kg
+  biomasses=biomasses*1000.0*20**2/100**2
 
   # reproject coordinates
   x,y=reprojectVect(x,y,4326,27700)
