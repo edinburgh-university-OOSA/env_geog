@@ -103,7 +103,7 @@ def writeCoords(x,y,biomasses,outName):
   f.write(line)
 
   for i in range(0,x.shape[0]):
-    line=str(i)+","+str(x[i])+","+str(y[i])+"\n" #","+str(biomasses[i])+"\n"
+    line=str(i+1)+","+str(x[i])+","+str(y[i])+"\n" #","+str(biomasses[i])+"\n"
     f.write(line)
 
   f.close()
