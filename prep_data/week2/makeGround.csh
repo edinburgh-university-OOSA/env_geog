@@ -6,7 +6,7 @@ set chm="/geos/netdata/env_geog/week8/lidar/chm/mergedCHM.tif"
 
 set output="groundData.csv"
 set rmse=20
-@ nPlots=20
+@ nPlots=40
 
 python3 $bin/groundBiomass.py --nPlots $nPlots --chm $chm --output $output 
 

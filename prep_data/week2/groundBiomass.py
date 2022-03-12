@@ -21,23 +21,80 @@ if __name__ == "__main__":
     p.add_argument("--output",dest="outName",type=str,default='test.csv',help=("Output filename\nDefault=test.csv"))
     p.add_argument("--nPlots", dest ="nPlots", type=int, default=1, help=("Number of plots\nDefault = 1"))
     p.add_argument("--chm",dest="chmName",type=str,help=("Input CHM filename"))
+    p.add_argument("--bias", dest ="bias", type=float, default=0, help=("Bias in Mg/ha\nDefault = 0 Mg/ha"))
+    p.add_argument("--rmse", dest ="rmse", type=float, default=0, help=("RMSE in Mg/ha\nDefault = 0 Mg/ha"))
     cmdargs = p.parse_args()
     return cmdargs
 
 
 #############################################
 
-def setBiomass(chm,nPlots):
+def setBiomass(chm,nPlots,bias,rmse):
   '''set biomass from CHM'''
 
+  # linear biomass model
+  m=1/0.12
+  c=0.0
+
   # data pixels
-  inds=np.where(chm.data<200)[0]
+  inds=np.where(chm.data<200)
 
   # find bounds
   maxCHM=np.max(chm.data[inds])
 
-  # pick random stratification
+  # pick random heights across range
+  heights=np.random.uniform(size=nPlots,low=0.0,high=maxCHM)
 
+  # allocate array
+  biomass=np.zeros(nPlots,dtype=float)
+  x=np.zeros(nPlots,dtype=float)
+  y=np.zeros(nPlots,dtype=float)
+
+  # find indices closest to these
+  xInds=np.empty(nPlots,dtype=int)
+  yInds=np.empty(nPlots,dtype=int)
+  for i in range(0,nPlots):
+    # find all heights within 1 m
+    possInds=np.where(np.abs(chm.data-heights[i])<=1.0)
+
+    if(len(possInds[0])>1):
+      ind=np.random.randint(size=1,low=0,high=len(possInds[0])-1)
+      xInd=possInds[0][ind]
+      yInd=possInds[1][ind]
+    else:
+      indsUse=np.abs(chm.data-heights[i]).argmin()
+      yInd=indsUse%chm.data.shape[0]
+      xInd=indsUse//chm.data.shape[0]
+
+    biomass[i]=m*heights[i]+c
+    x[i]=xInd*chm.pixelWidth+chm.xOrigin
+    y[i]=yInd*chm.pixelHeight+chm.yOrigin
+
+  # add noise
+  rmseArr=np.random.normal(loc=bias,scale=rmse,size=nPlots)
+  biomass=biomass+rmseArr
+
+  return(biomass,x,y)
+
+
+#############################################
+
+def writeCoords(x,y,biomasses,outName):
+  '''Write coordinates to a csv file'''
+
+  thisName=outName.strip(".csv")+".coords.csv"
+
+  f=open(thisName,'w')
+  line="plot,longitude,lattitude,biomass\n"
+  f.write(line)
+
+  for i in range(0,x.shape[0]):
+    line=str(i)+","+str(x[i])+","+str(y[i])+","+str(biomasses[i])+"\n"
+    f.write(line)
+
+  f.close()
+  print("Written to",thisName)
+  return
 
 
 #############################################
@@ -52,11 +109,14 @@ if __name__ == "__main__":
   chm=tiffHandle(cmd.chmName)
 
   # set biomass values
-  biomasses=setBiomass(chm,cmd.nPlots)
+  biomasses,x,y=setBiomass(chm,cmd.nPlots,cmd.bias,cmd.rmse)
 
   # set plot data data
-  #data=generateData(biomasses)
+  data=generateData(biomasses)
 
   # write data
-  #data.writeCSV(cmd.outName)
+  data.writeCSV(cmd.outName)
+
+  # write coordinates
+  writeCoords(x,y,biomasses,cmd.outName)
 
