@@ -8,6 +8,13 @@ set output="groundData.csv"
 set rmse=20
 @ nPlots=40
 
-python3 $bin/groundBiomass.py --nPlots $nPlots --chm $chm --output $output 
+set minX=285305
+set minY=651809
+set maxX=303243
+set maxY=661182
+
+
+python3 $bin/groundBiomass.py --nPlots $nPlots --chm $chm --output $output --minX $minX --minY $minY --maxX $maxX --maxY $maxY --rmse $rmse
+
 
 

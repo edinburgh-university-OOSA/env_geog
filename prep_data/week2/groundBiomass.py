@@ -8,6 +8,7 @@ sys.path.append("/home/shancoc2/src/env_geog/prep_data/week1")
 sys.path.append("/home/shancoc2/src/OOSA-code-public/week5/rasters")
 from makeGround import *
 from readTiff import tiffHandle
+from pyproj import Proj, transform
 
 
 #############################################
@@ -23,13 +24,17 @@ if __name__ == "__main__":
     p.add_argument("--chm",dest="chmName",type=str,help=("Input CHM filename"))
     p.add_argument("--bias", dest ="bias", type=float, default=0, help=("Bias in Mg/ha\nDefault = 0 Mg/ha"))
     p.add_argument("--rmse", dest ="rmse", type=float, default=0, help=("RMSE in Mg/ha\nDefault = 0 Mg/ha"))
+    p.add_argument("--minX", dest ="minX", type=float, default=-100000000,help=("Minimum x"))
+    p.add_argument("--minY", dest ="minY", type=float, default=-100000000,help=("Minimum y"))
+    p.add_argument("--maxX", dest ="maxX", type=float, default=100000000,help=("Maximum x"))
+    p.add_argument("--maxY", dest ="maxY", type=float, default=100000000,help=("Maximum y"))
     cmdargs = p.parse_args()
     return cmdargs
 
 
 #############################################
 
-def setBiomass(chm,nPlots,bias,rmse):
+def setBiomass(chm,nPlots,bias,rmse,minX,minY,maxX,maxY):
   '''set biomass from CHM'''
 
   # linear biomass model
@@ -45,6 +50,15 @@ def setBiomass(chm,nPlots,bias,rmse):
   # pick random heights across range
   heights=np.random.uniform(size=nPlots,low=0.0,high=maxCHM)
 
+  # set coordinates for slciing
+  allX=np.zeros((chm.nY,chm.nX),dtype=float)
+  for i in range(0,chm.nX):
+    allX[:,i]=chm.xOrigin+i*chm.pixelWidth
+
+  allY=np.zeros((chm.nY,chm.nX),dtype=float)
+  for j in range(0,chm.nY):
+      allY[j,:]=chm.yOrigin+j*chm.pixelHeight
+
   # allocate array
   biomass=np.zeros(nPlots,dtype=float)
   x=np.zeros(nPlots,dtype=float)
@@ -55,12 +69,12 @@ def setBiomass(chm,nPlots,bias,rmse):
   yInds=np.empty(nPlots,dtype=int)
   for i in range(0,nPlots):
     # find all heights within 1 m
-    possInds=np.where(np.abs(chm.data-heights[i])<=1.0)
+    possInds=np.where((np.abs(chm.data-heights[i])<=1.0)&(allX>=minX)&(allX<=maxX)&(allY>=minY)&(allY<=maxY))
 
     if(len(possInds[0])>1):
       ind=np.random.randint(size=1,low=0,high=len(possInds[0])-1)
-      xInd=possInds[0][ind]
-      yInd=possInds[1][ind]
+      xInd=possInds[1][ind]
+      yInd=possInds[0][ind]
     else:
       indsUse=np.abs(chm.data-heights[i]).argmin()
       yInd=indsUse%chm.data.shape[0]
@@ -99,6 +113,21 @@ def writeCoords(x,y,biomasses,outName):
 
 #############################################
 
+def reprojectVect(x,y,outEPSG,inEPSG):
+  '''Reproject vector data'''
+
+  # set projections
+  inProj=Proj("epsg:"+str(inEPSG))
+  outProj=Proj("epsg:"+str(outEPSG))
+
+  # reproject data
+  lat,lon=transform(inProj,outProj,x,y)
+
+  return(lon,lat)
+
+
+#############################################
+
 if __name__ == "__main__":
   '''main block'''
 
@@ -109,7 +138,10 @@ if __name__ == "__main__":
   chm=tiffHandle(cmd.chmName)
 
   # set biomass values
-  biomasses,x,y=setBiomass(chm,cmd.nPlots,cmd.bias,cmd.rmse)
+  biomasses,x,y=setBiomass(chm,cmd.nPlots,cmd.bias,cmd.rmse,cmd.minX,cmd.minY,cmd.maxX,cmd.maxY)
+
+  # reproject coordinates
+  x,y=reprojectVect(x,y,4326,27700)
 
   # set plot data data
   data=generateData(biomasses)
