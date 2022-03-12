@@ -17,7 +17,7 @@ d <- read.csv(filename)
 # find number of unique plots
 plots <- unique(d$plot)
 
-# set up allometric parameters as a dataframe
+# load allometric parameters from Muukkonen into a dataframe
 beta <- data.frame(matrix(ncol=4,nrow=3))
 colnames(beta) <- c('FS','PA','PS','QR')
 beta$FS[1]=0.006   # beta 0
@@ -33,42 +33,43 @@ beta$QR[1]=-0.604  # beta 0
 beta$QR[2]=10.677  # beta 1
 beta$QR[3]=15.900  # beta 2
 
-# dataframe to hold total biomass density. All 0 for now with plot names as columns
+# set up a dataframe to hold total biomass density. All 0 for now.
 biomass <- as.data.frame(matrix(0,ncol=2,nrow=length(plots)))
 colnames(biomass) <- c("plot","biomassDensity")
 
 
-# loop over plots
-j=1
-for( p in plots )
-{
-  # find DBH and species for alive trees in this plot
+# loop over plots and fill in the biomass values per plot
+j=1  # "j" here keeps count
+
+for( p in plots ){
+
+  # find DBH and species for alive trees within this plot
   thisDBH=d$dbh[(d$plot==p)&(d$state=='alive')]
   thisSP=d$species[(d$plot==p)&(d$state=='alive')]
 
-  # loop over trees and add up biomass
+  # loop over the trees within this plot and add up biomass
   for ( i in 1:length(thisDBH)){
 
-    # allometric parameters for this equation
+    # extract allometric parameters for this equation
     beta0=beta[1,thisSP[i]]
     beta1=beta[2,thisSP[i]]
     beta2=beta[3,thisSP[i]]
 
-    # biomass in Mg (divide by 1000 to convert kg to Mg)
+    # biomass in Mg (divide by 1000 to convert kg to Mg), using Muukkonen equation 3
     thisBiomass=exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))/1000.0
 
-    # add up biomass for this plot
+    # record plot number and add up biomass for this plot
     biomass$plot[j]=p
     biomass$biomassDensity[j]=biomass$biomassDensity[j]+thisBiomass
   }
 
-  # scale biomass by plot area
+  # scale biomass by plot area to get biomass density
   biomass$biomassDensity[j]=biomass$biomassDensity[j]/area
 
   j=j+1   # this keeps count of where in the data frame we are
 }
 
-# write data to a csv file
+# write data to a csv file, ready to read in later
 outname='fieldBiomass.csv'
 write.csv(biomass,outname)
 print(outname)
