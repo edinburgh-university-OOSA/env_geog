@@ -6,7 +6,7 @@
 
 # ground data file
 #filename="/geos/netdata/env_geog/week8/ground/allPlot.csv"
-filename='/Users/dill/teaching/env_geog/2021-22/env_geog_code/week1/data/allPlot.csv'
+filename='/geos/netdata/env_geog/week8/ground/groundData.csv'
 
 # plot area in ha
 area=20*20/(100*100)
