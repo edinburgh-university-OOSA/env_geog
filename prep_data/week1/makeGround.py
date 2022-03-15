@@ -107,12 +107,12 @@ class generateData():
 
   ###########################
 
-  def makeSpecies(self):
+  def makeSpecies(self,spList=["PA","PS","QR","FS"]):
     '''Make a list of species'''
     self.nSp=4
 
     # species list
-    self.spList=["PA","PS","QR","FS"]
+    self.spList=spList
 
     # is conifer or not
     self.isConifer=np.empty((self.nSp),dtype=bool)

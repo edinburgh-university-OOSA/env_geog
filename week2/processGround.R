@@ -5,7 +5,6 @@
 ############################
 
 # ground data file
-#filename="/geos/netdata/env_geog/week8/ground/allPlot.csv"
 filename='/geos/netdata/env_geog/week8/ground/groundData.csv'
 
 # plot area in ha
