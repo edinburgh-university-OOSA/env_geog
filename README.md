@@ -10,6 +10,20 @@ This is the code for the University of Edinburgh's [Environmental Geography](htt
 Code is primarily in R, with some preparation scripts in Python.
 
 
+## Week 1
+This contains code for potential answers for the first week of this part of the course (teaching week 7).
+
+
+## Week 2
+This contains code for potential answers for the second week of this part of the course (teaching week 8).
+
+
+
+## prep\_data
+This contains code to generate the data used in the course.
+
+
+
 ## Author
 
 Steven Hancock: sthancock
