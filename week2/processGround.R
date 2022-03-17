@@ -5,10 +5,10 @@
 ############################
 
 # ground data file
-filename='/geos/netdata/env_geog/week8/ground/groundData.csv'
+filename <- '/geos/netdata/env_geog/week8/ground/groundData.csv'
 
 # plot area in ha
-area=20*20/(100*100)
+area <- 20*20/(100*100)
 
 # read in the data
 d <- read.csv(filename)
@@ -38,13 +38,13 @@ colnames(biomass) <- c("plot","biomassDensity")
 
 
 # loop over plots and fill in the biomass values per plot
-j=1  # "j" here keeps count
+j <- 1  # "j" here keeps count
 
 for( p in plots ){
 
   # find DBH and species for alive trees within this plot
-  thisDBH=d$dbh[(d$plot==p)&(d$state=='alive')]
-  thisSP=d$species[(d$plot==p)&(d$state=='alive')]
+  thisDBH <- d$dbh[(d$plot==p)&(d$state=='alive')]
+  thisSP <- d$species[(d$plot==p)&(d$state=='alive')]
 
   # loop over the trees within this plot and add up biomass
   for ( i in 1:length(thisDBH)){
@@ -55,7 +55,7 @@ for( p in plots ){
     beta2=beta[3,thisSP[i]]
 
     # biomass in Mg (divide by 1000 to convert kg to Mg), using Muukkonen equation 3
-    thisBiomass=exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))/1000.0
+    thisBiomass <- exp(beta0+beta1*thisDBH[i]/(thisDBH[i]+beta2))/1000.0
 
     # record plot number and add up biomass for this plot
     biomass$plot[j]=p
@@ -65,11 +65,11 @@ for( p in plots ){
   # scale biomass by plot area to get biomass density
   biomass$biomassDensity[j]=biomass$biomassDensity[j]/area
 
-  j=j+1   # this keeps count of where in the data frame we are
+  j <- j+1   # this keeps count of where in the data frame we are
 }
 
 # write data to a csv file, ready to read in later
-outname='fieldBiomass.csv'
+outname <- 'fieldBiomass.csv'
 write.csv(biomass,outname)
 print(outname)
 

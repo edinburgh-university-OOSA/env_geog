@@ -17,13 +17,13 @@ chm <- dsm-dtm
 
 
 # make 20 m resolution
-endRes=20  # 20 m resolutio
-coarseFact=round(endRes/res(chm)[1])
+endRes <- 20  # 20 m resolutio
+coarseFact <- round(endRes/res(chm)[1])
 coarseCHM <- aggregate(chm, fact=coarseFact)
 
 
 # write to a new geotiff
-chmName='NS95NW_50CM_CHM_PHASE5.tif'
+chmName <- 'NS95NW_50CM_CHM_PHASE5.tif'
 writeRaster(coarseCHM,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
 print(chmName)
 

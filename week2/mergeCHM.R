@@ -5,7 +5,7 @@ library(sp)
 library(raster)
 
 # make list of chm filenames
-chmList=list.files(path='.',pattern='50CM_CHM_PHASE5.tif')
+chmList <- list.files(path='.',pattern='50CM_CHM_PHASE5.tif')
 
 for( filename in chmList ){
 
@@ -14,13 +14,13 @@ for( filename in chmList ){
 
   # append to overall data
   if(exists('merged')){
-    fList=list(merged,chm)
+    fList <- list(merged,chm)
     merged<- do.call(merge,fList)
-  }else merged=chm
+  }else merged <- chm
 } 
 
 # write to a new geotiff
-chmName="mergedCHM.tif"
+chmName <- "mergedCHM.tif"
 writeRaster(merged,chmName, format="GTiff",datatype="INT1U", overwrite=TRUE)
 print(chmName)
 
