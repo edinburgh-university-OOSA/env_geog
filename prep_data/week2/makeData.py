@@ -30,6 +30,7 @@ def readCommands():
   p.add_argument("--c", dest ="c", type=float, default=0, help=("Line y interept"))
   p.add_argument("--form", dest ="form", type=str, default="line", help=("Format of line. Line, exg or log"))
   p.add_argument("--writePoints",dest="writePoints", action='store_true', default=False, help=("Write points to a file"))
+  p.add_argument("--drawOneLine",dest="drawOneLine", action='store_true', default=False, help=("Draw a one to one lone"))
 
   cmdargs = p.parse_args()
   return cmdargs
@@ -65,12 +66,22 @@ class fakeData():
 
   #############################
 
-  def plotPoints(self,outName):
+  def plotPoints(self,outName,drawOneLine=False):
     '''Plot points'''
 
     plt.plot(self.x,self.y,'.')
+    plt.xlim([0,None])
+    plt.ylim([0,None])
     plt.ylabel("Biomass density (Mg/ha)")
     plt.xlabel("Mean canopy height (m)")
+
+    if(drawOneLine): # add a 1-1 line
+      if(np.max(self.y)<np.max(self.x)):
+        maxVal=np.max(self.y)
+      else:
+        maxVal=np.max(self.x)
+      plt.plot([0,maxVal],[0,maxVal])
+
     plt.savefig(outName)
     plt.close()
     print("Graph to",outName)
@@ -106,7 +117,7 @@ if __name__ == '__main__':
   d=fakeData(cmd.numb,cmd.minB,cmd.maxB,cmd.m,cmd.c,cmd.bias,cmd.rmse,form=cmd.form)
 
   # plot it
-  d.plotPoints(cmd.outName)
+  d.plotPoints(cmd.outName,drawOneLine=cmd.drawOneLine)
 
   if(cmd.writePoints):
     # write points
