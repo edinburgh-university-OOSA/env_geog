@@ -99,7 +99,7 @@ def writeCoords(x,y,biomasses,outName):
   thisName=outName.strip(".csv")+".coords.csv"
 
   f=open(thisName,'w')
-  line="plot,longitude,lattitude\n"
+  line="plot,lon,lat\n"
   f.write(line)
 
   for i in range(0,x.shape[0]):
