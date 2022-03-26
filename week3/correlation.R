@@ -8,5 +8,3 @@ d <- read.csv(filename)
 # determine the correlation
 cor(d$CHM,d$AGBD)
 
-
-

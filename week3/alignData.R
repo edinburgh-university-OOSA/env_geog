@@ -29,3 +29,15 @@ crs(d) <- crsIn
 dReproj <- spTransform(d, CRSobj=crsOut)
 
 
+# read in CHM
+chmName <- '/geos/netdata/env_geog/week10/lidar/mergedCHM.tif'
+chm <- raster(chmName)
+
+# extract CHM values and add to dataframe
+plotCHM <- extract(chm, d, method='simple')
+d$chm <- plotCHM
+
+# write to csv
+write.csv(d,'biomassCalData.csv')
+
+
