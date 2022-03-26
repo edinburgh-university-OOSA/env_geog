@@ -13,7 +13,7 @@ c <- read.csv(coordFile)
 combined <- merge(b,c,by='plot')
 
 # write to new csv file
-outname <- 'biomassCoords.csv'
-write.csv(biomass,outname)
+outname <- 'combinedBiomass.csv'
+write.csv(combined,outname)
 print(outname)
 

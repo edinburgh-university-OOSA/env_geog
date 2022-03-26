@@ -34,7 +34,7 @@ beta$QR[3]=15.900  # beta 2
 
 # set up a dataframe to hold total biomass density. All 0 for now.
 biomass <- as.data.frame(matrix(0,ncol=2,nrow=length(plots)))
-colnames(biomass) <- c("plot","biomassDensity")
+colnames(biomass) <- c("plot","agbd")
 
 
 # loop over plots and fill in the biomass values per plot
@@ -59,11 +59,11 @@ for( p in plots ){
 
     # record plot number and add up biomass for this plot
     biomass$plot[j]=p
-    biomass$biomassDensity[j]=biomass$biomassDensity[j]+thisBiomass
+    biomass$agbd[j]=biomass$agbd[j]+thisBiomass
   }
 
   # scale biomass by plot area to get biomass density
-  biomass$biomassDensity[j]=biomass$biomassDensity[j]/area
+  biomass$agbd[j]=biomass$agbd[j]/area
 
   j <- j+1   # this keeps count of where in the data frame we are
 }
