@@ -5,6 +5,8 @@
 
 # packages needed
 library(rgdal)
+library(sp)
+library(raster)
 
 
 # read data
@@ -17,7 +19,13 @@ epsg <- make_EPSG()   # list of all epsg codes
 crsIn <- epsg$prj4[epsg$code==4326]
 crsOut <- epsg$prj4[epsg$code==27700]
 
+# tell R which columns contain coordinates
+coordinates(d) <- c('lon','lat')
 
-spTransform(leroy, CRSobj="+proj=moll +ellps=WGS84")
+# tell R which projection you are using
+crs(d) <- crsIn
+
+# reproject the data to EPSG:27700
+dReproj <- spTransform(d, CRSobj=crsOut)
 
 
