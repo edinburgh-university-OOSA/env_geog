@@ -31,6 +31,7 @@ def readCommands():
   p.add_argument("--form", dest ="form", type=str, default="line", help=("Format of line. Line, exg or log"))
   p.add_argument("--writePoints",dest="writePoints", action='store_true', default=False, help=("Write points to a file"))
   p.add_argument("--drawOneLine",dest="drawOneLine", action='store_true', default=False, help=("Draw a one to one lone"))
+  p.add_argument("--noGraph",dest="drawGraph", action='store_false', default=True, help=("Do not draw a graph"))
 
   cmdargs = p.parse_args()
   return cmdargs
@@ -93,11 +94,13 @@ class fakeData():
 
   def writePoints(self,outRoot):
     '''Write points to a file'''
-    outNamen=outRoot.strip('.png')+".txt"
+    outNamen=outRoot.strip('.png')+".csv"
 
     f=open(outNamen,'w')
+    line="AGDB,CHM\n"
+    f.write(line)
     for i in range(0,self.x.shape[0]):
-      line=str(self.x[i])+" "+str(self.y[i])+"\n"
+      line=str(self.x[i])+","+str(self.y[i])+"\n"
       f.write(line)
 
     f.close()
@@ -117,10 +120,12 @@ if __name__ == '__main__':
   d=fakeData(cmd.numb,cmd.minB,cmd.maxB,cmd.m,cmd.c,cmd.bias,cmd.rmse,form=cmd.form)
 
   # plot it
-  d.plotPoints(cmd.outName,drawOneLine=cmd.drawOneLine)
+  if(cmd.drawGraph):
+    d.plotPoints(cmd.outName,drawOneLine=cmd.drawOneLine)
 
+  # write points
   if(cmd.writePoints):
-    # write points
+
     d.writePoints(cmd.outName)
 
 #########################################
