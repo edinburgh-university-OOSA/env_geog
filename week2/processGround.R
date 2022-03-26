@@ -5,7 +5,7 @@
 ############################
 
 # ground data file
-filename <- '/geos/netdata/env_geog/week8/ground/groundData.csv'
+filename <- 'G:/env_geog/week8/ground/groundData.csv'
 
 # plot area in ha
 area <- 20*20/(100*100)

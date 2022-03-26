@@ -3,8 +3,8 @@ library(rgdal)
 library(sp)
 library(raster)
 
-dsmName <- '/geos/netdata/env_geog/week8/lidar/DSM/NS95NW_50CM_DSM_PHASE5.tif'
-dtmName <- '/geos/netdata/env_geog/week8/lidar/DTM/NS95NW_50CM_DTM_PHASE5.tif'
+dsmName <- 'G:/env_geog/week8/lidar/DSM/NS95NW_50CM_DSM_PHASE5.tif'
+dtmName <- 'G:/env_geog/week8/lidar/DTM/NS95NW_50CM_DTM_PHASE5.tif'
 
 
 # read data

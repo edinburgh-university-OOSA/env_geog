@@ -3,7 +3,7 @@
 # Script to fit a line to data
 
 # read data
-filename <- '/geos/netdata/env_geog/week10/function/dataset.1.csv'
+filename <- 'G:/env_geog/week10/function/dataset.1.csv'
 d <- read.csv(filename)
 
 # fit the data

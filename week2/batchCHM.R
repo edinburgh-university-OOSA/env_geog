@@ -4,8 +4,8 @@ library(sp)
 library(raster)
 
 
-dsmDir <- '/geos/netdata/env_geog/week8/lidar/DSM'
-dtmDir <- '/geos/netdata/env_geog/week8/lidar/DTM'
+dsmDir <- 'G:/env_geog/week8/lidar/DSM'
+dtmDir <- 'G:/env_geog/week8/lidar/DTM'
 
 dsmList <- list.files(path=dsmDir,pattern='.tif') 
 
