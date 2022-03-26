@@ -1,5 +1,5 @@
 
-# Script to practice function fitting
+# Script to read and plot data
 
 # read data
 filename <- '/geos/netdata/env_geog/week10/function/dataset.1.csv'
@@ -13,6 +13,4 @@ length(d$AGBD)
 
 # plot the data
 plot(d$CHM,d$AGBD,xlab="CHM (m)",ylab="AGBD (Mg/ha)")
-
-
 

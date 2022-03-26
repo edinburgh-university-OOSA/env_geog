@@ -97,7 +97,7 @@ class fakeData():
     outNamen=outRoot.strip('.png')+".csv"
 
     f=open(outNamen,'w')
-    line="AGDB,CHM\n"
+    line="CHM,AGBD\n"
     f.write(line)
     for i in range(0,self.x.shape[0]):
       line=str(self.x[i])+","+str(self.y[i])+"\n"
