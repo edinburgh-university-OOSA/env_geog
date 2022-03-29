@@ -10,12 +10,20 @@ This is the code for the University of Edinburgh's [Environmental Geography](htt
 Code is primarily in R, with some preparation scripts in Python.
 
 
+## Regional mapping workflow
+The suggested workflow to combine diameter at breast height (DBH) data with airborne laser scanning derived digital surface models (DSMs) and digital terrain models (DTMs) to map biomass. Combining :wq
+
+
+
 ## Week 1
 This contains code for potential answers for the first week of this part of the course (teaching week 7).
 
 
 ## Week 2
 This contains code for potential answers for the second week of this part of the course (teaching week 8).
+
+## Week 3
+This contains code for potential answers for the second week of this part of the course (teaching week 11).
 
 
 
