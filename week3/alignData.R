@@ -30,10 +30,10 @@ chmName <- '/geos/netdata/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 
 # extract CHM values and add to dataframe
-plotCHM <- extract(chm, d, method='simple')
-d$chm <- plotCHM
+plotCHM <- extract(chm, spdf, method='simple')
+spdf$chm <- plotCHM
 
 # write to csv
-write.csv(d,'biomassCalData.csv')
+write.csv(spdf,'biomassCalData.csv')
 
 
