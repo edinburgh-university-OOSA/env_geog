@@ -10,7 +10,7 @@ library(raster)
 # read data
 estName <- 'biomass.tif'  # remote estimated biomas
 estimated <- raster(estName)
-groundName <- '/geos/netdata/env_geog/week10/ground/combinedValid.csv'
+groundName <- 'G:/env_geog/week10/ground/combinedValid.csv'
 biomass <- read.csv(groundName)
 
 # set input and output projections, using CRS codes

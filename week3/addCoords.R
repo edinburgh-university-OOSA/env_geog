@@ -2,8 +2,8 @@
 # script to add coordinates to ground biomass data
 
 # filenames for biomass and coordinates
-biomassFile <- '/geos/netdata/env_geog/week10/bits/fieldBiomass.csv'
-coordFile <- '/geos/netdata/env_geog/week8/ground/groundData.coords.csv'
+biomassFile <- 'G:/env_geog/week10/bits/fieldBiomass.csv'
+coordFile <- 'G:/env_geog/week8/ground/groundData.coords.csv'
 
 # read both datasets
 b <- read.csv(biomassFile)

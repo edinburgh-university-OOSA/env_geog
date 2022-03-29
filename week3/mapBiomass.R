@@ -6,7 +6,7 @@
 library(raster)
 
 # read CHM
-chmName <- '/geos/netdata/env_geog/week10/lidar/mergedCHM.tif'
+chmName <- 'G:/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 
 # apply model
