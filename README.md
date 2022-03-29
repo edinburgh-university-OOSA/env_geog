@@ -11,7 +11,16 @@ Code is primarily in R, with some preparation scripts in Python.
 
 
 ## Regional mapping workflow
-The suggested workflow to combine diameter at breast height (DBH) data with airborne laser scanning derived digital surface models (DSMs) and digital terrain models (DTMs) to map biomass. Combining :wq
+The suggested workflow to combine diameter at breast height (DBH) data with airborne laser scanning derived digital surface models (DSMs) and digital terrain models (DTMs) to map biomass.  This combines the scripts used during all three weeks.
+
+* Process ground data to above-ground biomass density with [processGround.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week2/processGround.R)
+* Add coordinates to ground data with [addCoords.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week3/addCoords.R)
+* Batch process lidar tiles to CHMs with [batchCHM.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week2/batchCHM.R)
+* Merge CHM tiles to single geotiff [mergeCHM.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week2/mergeCHM.R)
+* Make table of biomass and CHM with [alignData.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week3/alignData.R)
+* Fit a biomass model [calibrateBiomass.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week3/calibrateBiomass.R)
+* Apply biomass model to CHM and write geotiff [mapBiomass.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week3/mapBiomass.R)
+* Validate, after pre-processing the validation data, with [validate.R](https://github.com/edinburgh-university-OOSA/env_geog/blob/main/week3/validate.R)
 
 
 
