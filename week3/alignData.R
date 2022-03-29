@@ -9,7 +9,7 @@ library(sp)
 library(raster)
 
 
-# read data
+# read data. The output of addCoords.R
 filename <- 'combinedBiomass.csv'
 d <- read.csv(filename)
 
@@ -25,7 +25,7 @@ xy <- d[,c(5,6)]
 # make a spatial dataframe containing the projcetion information
 spdf <- SpatialPointsDataFrame(coords=xy,data=d,proj4string=CRS(crsIn))
 
-# read in CHM
+# read in merged CHM. OUtput of mergeCHM.R
 chmName <- 'G:/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 

@@ -2,7 +2,7 @@
 
 # Script to fit a line to data
 
-# read data
+# read data. Output of alignData.R
 filename <- 'biomassCalData.csv'
 d <- read.csv(filename)
 

@@ -5,7 +5,7 @@
 # load libraries needed
 library(raster)
 
-# read CHM
+# read merged CHM
 chmName <- 'G:/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 
