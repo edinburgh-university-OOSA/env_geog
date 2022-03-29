@@ -26,7 +26,7 @@ xy <- d[,c(5,6)]
 spdf <- SpatialPointsDataFrame(coords=xy,data=d,proj4string=CRS(crsIn))
 
 # read in CHM
-chmName <- '/geos/netdata/env_geog/week10/lidar/mergedCHM.tif'
+chmName <- 'G:/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 
 # extract CHM values and add to dataframe
