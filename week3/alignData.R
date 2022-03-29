@@ -16,18 +16,14 @@ d <- read.csv(filename)
 
 # set input and output projections, using CRS codes
 epsg <- make_EPSG()   # list of all epsg codes
-crsIn <- epsg$prj4[epsg$code==4326]
-crsOut <- epsg$prj4[epsg$code==27700]
+crsIn <- epsg$prj4[epsg$code==4326][1]
+crsOut <- epsg$prj4[epsg$code==27700][1]
 
 # tell R which columns contain coordinates
-coordinates(d) <- c('lon','lat')
+xy <- d[,c(5,6)]
 
-# tell R which projection you are using
-crs(d) <- crsIn
-
-# reproject the data to EPSG:27700
-dReproj <- spTransform(d, CRSobj=crsOut)
-
+# make a spatial dataframe containing the projcetion information
+spdf <- SpatialPointsDataFrame(coords=xy,data=d,proj4string=CRS(crsIn))
 
 # read in CHM
 chmName <- '/geos/netdata/env_geog/week10/lidar/mergedCHM.tif'
