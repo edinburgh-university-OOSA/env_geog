@@ -22,10 +22,10 @@ crsOut <- epsg$prj4[epsg$code==27700][1]
 # tell R which columns contain coordinates
 xy <- d[,c(5,6)]
 
-# make a spatial dataframe containing the projcetion information
+# make a spatial dataframe containing the projection information
 spdf <- SpatialPointsDataFrame(coords=xy,data=d,proj4string=CRS(crsIn))
 
-# read in merged CHM. OUtput of mergeCHM.R
+# read in merged CHM. Output of mergeCHM.R
 chmName <- 'G:/env_geog/week10/lidar/mergedCHM.tif'
 chm <- raster(chmName)
 
